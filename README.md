@@ -1,1 +1,1 @@
-python3 odoo-bin --addons-path=addons -d mydb
+python odoo-bin --stop-after-init --config ./conf/odoo.conf --init base
