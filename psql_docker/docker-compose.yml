@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U odoo"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+
+volumes:
+  odoo-db-data:
