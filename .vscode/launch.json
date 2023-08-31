@@ -3,23 +3,37 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "odoo",
-            "type": "python",
-            "request": "launch",
-            // "stopOnEntry": true,
-            "program": "${workspaceFolder}/odoo-bin",
-            "args": [
-                "-w",
-                "odoo",
-                "-r",
-                "odoo",
-                // "-d",
-                // "odoo",
-                "-c",
-                "/home/twtrubiks/work/odoo13/config/odoo.conf"
-            ]
-        }
-    ]
+    "configurations": [{
+        "name": "Python: Odoo16",
+        "type": "python",
+        "request": "launch",
+        "stopOnEntry": false,
+        "python": "F:\\odoo16\\python\\python.exe", //path of python where odoo has installed
+        "console": "integratedTerminal",
+        "program": "${workspaceRoot}\\odoo-bin",
+        "args": [
+            "--config=${workspaceRoot}\\odoo.conf",
+
+            // "--init=report_xlsx", //創建這個名稱的addon
+            // "--database=odoo16", //需一起使用，指定安裝的資料庫
+
+            // "--update=report_xlsx", //更新這個名稱的addon
+            // "--database=odoo16", //需一起使用，指定更新的資料庫
+
+            "--dev=all" //全部都啟用
+            // 可用參數:
+            //     xml:直接從 XML 檔案中讀取 QWeb 模板，而不從資料庫讀取。一旦模板在資料庫中被修改，只有在下次更新/初始化時才會從 XML 檔案中讀取。特別注意，使用此選項時，模板不會進行翻譯。
+            //     reload:當 Python 檔案被更新時重新啟動伺服器（取決於所使用的文本編輯器，有時可能無法偵測到更新）
+            //     qweb:當一個節點包含 t-debug='debugger' 時，在評估 QWeb 模板時中斷
+            //     (i)p(u)db:在記錄和回傳錯誤之前，在程式碼中遇到意外錯誤時啟動選擇的 Python 偵錯器
+            //     werkzeug:在發生例外情況時，在前端頁面上顯示完整的回溯資訊。
+
+        ],
+        "cwd": "${workspaceRoot}",
+        "env": {},
+        "envFile": "${workspaceRoot}/.env",
+        // "debugOptions": [
+        //     "RedirectOutput"
+        // ]
+    }]
 }
