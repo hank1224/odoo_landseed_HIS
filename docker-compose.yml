@@ -1,7 +1,6 @@
 version: '3.5'
 services:
   web:
-    # image: odoo:16.0
     build: .
     depends_on:
       - db
@@ -19,17 +18,9 @@ services:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
       - ./addons_requirements.txt:/addons_requirements.txt
-      # - ./odoo-log-data:/var/log/odoo
-    # command: 
-    #   sh -c "pip install -r /addons_requirements.txt && odoo"
-    # command: 
-    #   odoo
-    # command:
-      # odoo --db_user odoo16 --db_password odoo16 --init addons --database odoo
+
   db:
     image: postgres:15
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=${POSTGRES_USER}
