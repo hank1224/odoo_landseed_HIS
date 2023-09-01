@@ -6,8 +6,6 @@ services:
       - db
     ports:
       - "8069:8069"
-    env_file:
-      - .env
     healthcheck:
       test: curl -fs http://localhost:8069/web/database/selector || exit 1
       interval: 1m
