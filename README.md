@@ -6,8 +6,7 @@
 
 1. 把需要測試的addons放入addons資料夾
 2. 把addons所需的額外套件加入addons_requrements.txt
-3. 建立.env檔案，並設定所需的odoo.conf
-4. 執行指令以啟動測試環境：
+3. 執行指令以啟動測試環境：
 
 ```shell
 docker-compose up
