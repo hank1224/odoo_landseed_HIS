@@ -28,22 +28,22 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
-case "$1" in
-    -- | odoo)
-        shift
-        if [[ "$1" == "scaffold" ]] ; then
-            exec odoo "$@"
-        else
-            wait-for-psql.py ${DB_ARGS[@]} --timeout=30
-            exec odoo "$@" "${DB_ARGS[@]}"
-        fi
-        ;;
-    -*)
-        wait-for-psql.py ${DB_ARGS[@]} --timeout=30
-        exec odoo "$@" "${DB_ARGS[@]}"
-        ;;
-    *)
-        exec "$@"
-esac
+directories=$(ls -d /mnt/extra-addons/*/)
+folder_names=""
+for dir in $directories
+do
+    folder_name=$(basename $dir)
+    folder_names+=",$folder_name"
+done
+folder_names=${folder_names:1}
+
+wait-for-psql.py ${DB_ARGS[@]} --timeout=30
+
+nohup odoo "${DB_ARGS[@]}" --stop-after-init &
+odoo_pid=$!
+
+wait $odoo_pid
+
+exec odoo "${DB_ARGS[@]}" --init $folder_names
 
 exit 1
