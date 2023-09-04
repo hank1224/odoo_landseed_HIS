@@ -1,0 +1,19 @@
+name: odoo_addons_build
+
+on:
+  push:
+    branches: ["github_actions_ci"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # 檢出代碼到工作目錄
+
+    - name: Build and run Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install docker-compose
+        docker-compose up -d
