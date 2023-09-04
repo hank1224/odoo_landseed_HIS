@@ -1,5 +1,8 @@
 # docker-compose並載入addons測試的環境
-注意：ARM處理器(Mac M系列)無法運行，因為套件wkhtmltopdf無法在ARM上運行([見](https://github.com/wkhtmltopdf/packaging/issues/98))
+**注意：ARM處理器(Mac M系列)無法運行**，因為套件wkhtmltopdf無法在ARM上運行([見](https://github.com/wkhtmltopdf/packaging/issues/98))
+
+
+環境以Linux為主，Windows環境下已排除LF問題
 
 ## 步驟：
 1. 把需要測試的addons放入addons資料夾
@@ -15,7 +18,6 @@ docker compose up
 ```bash
 FATAL:  database "odoo" does not exist #在docker-compose.yml中設定你指定的名稱即可
 ```
-
 
 - dockerfile有進行過修改，會複製addons資料夾中的檔案進行build，並且使用20230825版本
 - volume有連接config/odoo.conf，所以運行過後設定會被加入密鑰和初始不一樣
