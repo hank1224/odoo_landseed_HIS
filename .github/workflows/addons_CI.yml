@@ -1,8 +1,8 @@
-name: odoo_addons_build
+name: odoo_addons_build_test
 
 on:
   push:
-    branches: ["github_actions_ci"]
+    branches: ["github_actions_ci_test"]
 
 jobs:
   build:
