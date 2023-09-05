@@ -1,8 +1,8 @@
-name: odoo_addons_build_test
-
+name: Odoo addons Automate CI
 on:
   push:
-    branches: ["github_actions_ci_test"]
+    branches:
+      - github_actions_ci_test
 
 jobs:
   build:
