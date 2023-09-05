@@ -1,4 +1,4 @@
-name: Odoo addons Automate CI
+name: Odoo addons Automate CI (.yml file in main)
 run-name: ${{ github.actor }} is testing addons build
 on:
   push:
