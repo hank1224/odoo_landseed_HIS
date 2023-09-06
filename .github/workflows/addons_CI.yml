@@ -27,33 +27,33 @@ jobs:
           
     - name: Install pip requirements
       run: |
-      python -m pip install --upgrade pip
-      pip install -r requirements.txt
-      pip install -r extra-addons-requirements.txt
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r extra-addons-requirements.txt
     
     - name: Set up PostgreSQL 15
       run: |
-      cd psql_docker
-      docker-compose up -d
-      cd ..
+        cd psql_docker
+        docker-compose up -d
+        cd ..
 
     - name: Set up Odoo 16
       run: |
-      wait-for-psql.py --timeout=30 
-      python odoo-bin -c conf/odoo.conf --stop-after-init
+        wait-for-psql.py --timeout=30 
+        python odoo-bin -c conf/odoo.conf --stop-after-init
 
     - name: Get extra-addon names
       run: |
-      directories=$(ls -d /extra-addons/*/)
-      folder_names=""
-      for dir in $directories
-      do
-          folder_name=$(basename $dir)
-          folder_names+=",$folder_name"
-      done
-      folder_names=${folder_names:1}
-      echo "extra-addons folder names: $folder_names"
+        directories=$(ls -d /extra-addons/*/)
+        folder_names=""
+        for dir in $directories
+        do
+            folder_name=$(basename $dir)
+            folder_names+=",$folder_name"
+        done
+        folder_names=${folder_names:1}
+        echo "extra-addons folder names: $folder_names"
 
     - name: Init and Test extra-addons
       run: |
-      python odoo-bin -c conf/odoo.conf --test-enable --stop-after-init --init=$folder_names
+        python odoo-bin -c conf/odoo.conf --test-enable --stop-after-init --init=$folder_names
