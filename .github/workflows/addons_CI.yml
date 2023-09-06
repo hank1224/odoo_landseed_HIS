@@ -1,5 +1,5 @@
 name: Odoo extra-addons CI
-run-name: Test and build extra-addons by ${{ github.actor }} 
+run-name: Test and Build extra-addons by ${{ github.actor }} 
 on: 
   push:
     paths:
