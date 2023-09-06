@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # 檢出代碼到工作目錄
+      uses: actions/checkout@v4  # 檢出代碼到工作目錄
 
     - name: Set up Ubuntu dependencies
       run: |
@@ -24,6 +24,8 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.11
+      run: |
+        python setup.py install
           
     - name: Install pip requirements
       run: |
