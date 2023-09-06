@@ -43,16 +43,9 @@ jobs:
 
     - name: Get extra-addon names
       run: |
-        directories=$(find /extra-addons -mindepth 1 -maxdepth 1 -type d)
-        folder_names=""
-        for dir in $directories
-        do
-            folder_name=$(basename $dir)
-            folder_names+=",$folder_name"
-        done
-        folder_names=${folder_names:1}
-        echo "extra-addons folder names: $folder_names"
+        folders=$(ls -d extra-addons/* | sort -t / -k 2)
+        echo $folders
 
     - name: Init and Test extra-addons
       run: |
-        python odoo-bin -c conf/odoo.conf --test-enable --stop-after-init --init=$folder_names
+        python odoo-bin -c conf/odoo.conf --test-enable --stop-after-init --init=$folders
