@@ -1,14 +1,12 @@
-name: Odoo addons Automate CI
-run-name: ${{ github.actor }} is testing addons build
+name: Odoo extra-addons CI
+run-name: Test ${{ github.actor }} commit extra-addons
 on: 
   push:
     branches:
       - "hank1224-setting-actions.yml"
-  pull_request:
-    branches: ["master"]
 
 jobs:
-  build_env:
+  Test_addons:
     runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
 
     steps:
@@ -20,11 +18,11 @@ jobs:
       with:
         python-version: 3.11
 
-    - name: Set up dependencies
+    - name: Set up pip Dependencies
       run: |
         sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev
 
-    - name: pip requirements
+    - name: Install pip requirements
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
@@ -36,7 +34,7 @@ jobs:
         docker-compose up -d
         cd ..
 
-    - name: Set up Odoo 16
+    - name: Init Odoo 16
       run: |
         python wait-for-psql.py --timeout=30
         python odoo-bin -c conf/odoo.conf --stop-after-init
@@ -56,4 +54,4 @@ jobs:
     - name: Init and Test extra-addons
       run: |
         echo $FOLDER_NAMES
-        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES
+        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES --test-enable

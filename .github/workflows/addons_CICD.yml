@@ -1,1 +1,69 @@
+name: Odoo extra-addons CICD
+run-name: Deploy extra-addons by ${{ github.actor }}
+on: 
+  pull_request:
+    branches:
+      - "main"
 
+jobs:
+  Test_addons:
+    runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4  # 檢出代碼到工作目錄
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Set up pip Dependencies
+      run: |
+        sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev
+
+    - name: Install pip requirements
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r extra-addons-requirements.txt
+    
+    - name: Set up PostgreSQL 15
+      run: |
+        cd psql_docker
+        docker-compose up -d
+        cd ..
+
+    - name: Init Odoo 16
+      run: |
+        python wait-for-psql.py --timeout=30
+        python odoo-bin -c conf/odoo.conf --stop-after-init
+
+    - name: Get extra-addon names
+      run: |
+        directories=$(ls -d extra-addons/*/)
+        folder_names=""
+        for dir in $directories
+        do
+            folder_name=$(basename $dir)
+            folder_names+=",$folder_name"
+        done
+        folder_names=${folder_names:1}
+        echo "FOLDER_NAMES=$folder_names" >> $GITHUB_ENV
+
+    - name: Init and Test extra-addons
+      run: |
+        echo $FOLDER_NAMES
+        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES --test-enable
+
+  Depolyment:
+    needs: Test_addons
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4  # 檢出代碼到工作目錄
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
