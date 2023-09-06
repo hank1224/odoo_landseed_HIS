@@ -51,9 +51,9 @@ jobs:
             folder_names+=",$folder_name"
         done
         folder_names=${folder_names:1}
-        echo $folder_names
-        export FOLDER_NAMES=$folder_names
+        echo "FOLDER_NAMES=$folder_names" >> $GITHUB_ENV
 
     - name: Init and Test extra-addons
       run: |
+        echo $FOLDER_NAMES
         python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES
