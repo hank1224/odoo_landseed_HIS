@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout code
-        uses: actions/checkout@v2  # 檢出代碼到工作目錄
+      uses: actions/checkout@v2  # 檢出代碼到工作目錄
 
     - name: Set up Ubuntu dependencies
         run: |
