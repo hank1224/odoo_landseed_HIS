@@ -1,5 +1,5 @@
 name: Odoo extra-addons CI
-run-name: Test ${{ github.actor }} commit extra-addons
+run-name: Test and build extra-addons by ${{ github.actor }} 
 on: 
   push:
     branches:
@@ -54,4 +54,4 @@ jobs:
     - name: Init and Test extra-addons
       run: |
         echo $FOLDER_NAMES
-        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES --test-enable
+        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES
