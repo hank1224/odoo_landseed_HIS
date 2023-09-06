@@ -6,6 +6,7 @@ _build/
 
 # dotfiles
 .*
+!.gitattributes
 !.gitignore
 !.github
 !.mailmap
