@@ -3,7 +3,7 @@
 先安裝psql，可用 docker 或 直接安裝
 
 - docker：需要把port映射出來，映射出來的話是localhost:5432
-- 直接安裝：odoo會使用UNIX socket連線，設定 --db_host=localhost 即可更改
+- 直接安裝：注意odoo預設使用UNIX socket連線，在odoo.conf設定 --db_host=localhost 即可更改
 
 再安裝odoo：
 
@@ -22,10 +22,28 @@ psql使用：
 
 - docker 或 直接安裝 都可以看習慣
 
+用docker啟動psql：
+
+```bash
+# 位置psql_docker
+docker compose up
+```
+
+若要刪除或重建資料庫：
+
+```bash
+# 位置psql_docker
+docker compose down
+docker volume rm psql_docker_odoo-db-data
+```
+
 首次啟動odoo請使用：`python odoo-bin --db_host=localhost --db_user 資料庫帳號 --db_password 資料庫密碼`
 （若odoo使用UNIX socket就不設定 --db_host=localhost ）
 
-第一次進入後他會叫你建資料庫名稱和admin帳號
+用此指令第一次進入後他會叫你建資料庫名稱和admin帳號
+
+**如果直接給予db_name，odoo會自動建立資料庫，並且帳號密碼預設admin**
+
 之後進入可以搭配下面的參數一起使用
 
 開發時可以善用以下啟動參數：

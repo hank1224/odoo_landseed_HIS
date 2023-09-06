@@ -8,11 +8,10 @@
         "type": "python",
         "request": "launch",
         "stopOnEntry": false,
-        "python": "F:\\odoo16\\python\\python.exe", //path of python where odoo has installed
         "console": "integratedTerminal",
-        "program": "${workspaceRoot}\\odoo-bin",
+        "program": "${workspaceRoot}/odoo-bin",
         "args": [
-            "--config=${workspaceRoot}\\odoo.conf",
+            "--config=${workspaceRoot}/conf/odoo.conf",
 
             // "--init=report_xlsx", //創建這個名稱的addon
             // "--database=odoo16", //需一起使用，指定安裝的資料庫

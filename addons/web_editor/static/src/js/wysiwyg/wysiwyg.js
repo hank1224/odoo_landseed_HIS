@@ -647,7 +647,7 @@ const Wysiwyg = Widget.extend({
             const clientsInfos = Object.values(this.ptp.clientsInfos);
             const couldBeDisconnected =
                 Boolean(clientsInfos.length) &&
-                clientsInfos.every((x) => PTP_CLIENT_DISCONNECTED_STATES.includes(x.peerConnection.connectionState));
+                clientsInfos.every((x) => PTP_CLIENT_DISCONNECTED_STATES.includes(x.peerConnection && x.peerConnection.connectionState));
 
             if (couldBeDisconnected) {
                 this._offlineTimeout = setTimeout(() => {
@@ -977,6 +977,12 @@ const Wysiwyg = Widget.extend({
             const {oeModel: resModel, oeId: resId} = editableEl.dataset;
             const proms = [...editableEl.querySelectorAll('.o_modified_image_to_save')].map(async el => {
                 const isBackground = !el.matches('img');
+                if (el.closest(".o_dirty") !== editableEl) {
+                    // Do nothing as there is an editableEl closer to the image
+                    // that will perform the rpc call with the correct model and
+                    // id parameters.
+                    return;
+                }
                 // Modifying an image always creates a copy of the original, even if
                 // it was modified previously, as the other modified image may be used
                 // elsewhere if the snippet was duplicated or was saved as a custom one.
