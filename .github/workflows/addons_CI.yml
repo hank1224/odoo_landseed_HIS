@@ -43,10 +43,14 @@ jobs:
 
     - name: Get extra-addon names
       run: |
-        cd extra-addons
-        folders=$(ls -d */ | sort -t / -k 1)
-        echo $folders
-        cd ..
+        directories=$(ls -d extra-addons/*/)
+        folder_names=""
+        for dir in $directories
+        do
+            folder_name=$(basename $dir)
+            folder_names+=",$folder_name"
+        done
+        folder_names=${folder_names:1}
 
     - name: Init and Test extra-addons
       run: |
