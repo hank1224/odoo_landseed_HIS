@@ -52,7 +52,8 @@ jobs:
         done
         folder_names=${folder_names:1}
         echo $folder_names
+        export FOLDER_NAMES=$folder_names
 
     - name: Init and Test extra-addons
       run: |
-        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$folders
+        python odoo-bin -c conf/odoo.conf --stop-after-init --init=$FOLDER_NAMES
