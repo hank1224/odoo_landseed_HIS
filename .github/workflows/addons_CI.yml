@@ -1,0 +1,16 @@
+name: Odoo addons Automate CI (not_done)
+run-name: ${{ github.actor }} is testing addons build
+on: 
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build_env:
+    runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # 檢出代碼到工作目錄
