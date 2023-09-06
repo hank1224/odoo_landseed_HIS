@@ -1,0 +1,4 @@
+# 環境以Linux為主，設定git的自動換行為lf
+
+# input: commit進去的時候幫你把輸入normalize(轉成LF)，checkout出來的時候原封不動
+git config core.autocrlf input
