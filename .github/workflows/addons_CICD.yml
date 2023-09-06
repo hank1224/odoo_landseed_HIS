@@ -1,20 +1,17 @@
 name: Odoo extra-addons CICD
 run-name: Deploy extra-addons by ${{ github.actor }}
 on: 
-  push:
-    branches:
-      - "hank1224-setting-actions.yml"
   pull_request:
     branches:
       - "main"
 
 jobs:
-  # Build_and_Test_addons:
-  #   runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
+  Build_and_Test_addons:
+    runs-on: ubuntu-latest  # 使用Ubuntu Runner虛擬環境
 
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v4  # 檢出代碼到工作目錄
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4  # 檢出代碼到工作目錄
 
   #   - name: Set up Python 3.11
   #     uses: actions/setup-python@v4

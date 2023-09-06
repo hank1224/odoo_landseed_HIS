@@ -2,8 +2,9 @@ name: Odoo extra-addons CI
 run-name: Test and build extra-addons by ${{ github.actor }} 
 on: 
   push:
-    branches:
-      - "hank1224-setting-actions.yml"
+    paths:
+      - 'extra-addons/**'
+      - 'extra-addons-requirements.txt'
 
 jobs:
   Test_addons:
