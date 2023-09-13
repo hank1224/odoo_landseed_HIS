@@ -1,16 +1,18 @@
-# vscode
-.vscode/
+# Mac
+.DS_Store
 
 # sphinx build directories
 _build/
 
 # dotfiles
-.*
-.github/workflows
+# .*
 !.gitattributes
 !.gitignore
-!.github
 !.mailmap
+
+# Github Actions
+!.github/workflows/*
+
 # compiled python files
 *.py[co]
 __pycache__/
