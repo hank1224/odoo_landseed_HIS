@@ -32,13 +32,20 @@ services:
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
 
-  fhir_db:
+  fhir:
+    container_name: fhir
     image: "hapiproject/hapi:latest"
     ports:
-      - "8090:8080"
-    volumes:
-      - hapi-data:/data/hapi
-
+      - "8080:8080"
+    configs:
+      - source: hapi
+        target: /app/config/application.yaml
+    depends_on:
+      - db
+      
+configs:
+  hapi:
+     file: ./hapi.application.yaml
 
 volumes:
   odoo-web-data:
