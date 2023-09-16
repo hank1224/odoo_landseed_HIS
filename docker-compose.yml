@@ -40,36 +40,15 @@ services:
     healthcheck:
       test: curl -fs http://localhost:8080/hapi/fhir/metadata || exit 1
       interval: 1m30s
-      timeout: 5s
+      timeout: 15s
       retries: 2
-    depends_on:
-      - db_fhir
     ports:
       - "8080:8080"
     volumes:
-      - hapi-web-data:/data/hapi
+      - hapi-data:/data/hapi
     configs:
       - source: hapi
         target: /app/config/application.yaml
-
-  db_fhir:
-    image: postgres:15
-    ports:
-      - "5433:5433"
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=hapi
-      - POSTGRES_PASSWORD=hapi
-      - POSTGRES_PORT=5433
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready --username=hapi --dbname=hapi"]
-      interval: 1m
-      timeout: 5s
-      retries: 2
-
-    volumes:
-      - fhir-db-data:/var/lib/postgresql/data/pgdata
 
 configs:
   hapi:
@@ -80,5 +59,4 @@ configs:
 volumes:
   odoo-web-data:
   odoo-db-data:
-  hapi-web-data:
-  fhir-db-data:
+  hapi-data:
