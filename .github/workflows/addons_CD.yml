@@ -26,31 +26,26 @@ jobs:
 
     - name: Wait for health checks
       run: |
-        timeout 60s sh -c 'until docker ps | grep odoo-db | grep -q healthy; do echo "Waiting for container to be healthy..."; sleep 2; done'
-        timeout 60s sh -c 'until docker ps | grep odoo-web | grep -q healthy; do echo "Waiting for container to be healthy..."; sleep 2; done'
+        timeout 60s sh -c 'until docker ps | grep odoo-db | grep -q healthy; do echo "Waiting for odoo_db to be healthy..."; sleep 2; done'
+        timeout 60s sh -c 'until docker ps | grep odoo-web | grep -q healthy; do echo "Waiting for odoo_web to be healthy..."; sleep 2; done'
 
     - name: manually wait for hapi-fhir
       run: |
-        max_retries=5
-        retry_interval=10
-        retry_count=0
-        url="http://localhost:8080/fhir"
-
-        while true; do
-            response=$(curl -s -o /dev/null -w "%{http_code}" $url)
-            if [[ $response -eq 200 ]]; then
-                echo "Response 200 OK"
-                break
-            else
-                if [[ $retry_count -lt $max_retries ]]; then
-                    echo "Response not 200, retrying in $retry_interval seconds..."
-                    sleep $retry_interval
-                    retry_count=$((retry_count+1))
-                else
-                    echo "Max retries exceeded"
-                    exit 1
-                fi
-            fi
+        count=0
+        while : ; do
+          count=$((count+1))
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X GET 'http://localhost:8080/fhir/$meta')
+      
+          if [[ $response -eq 200 ]]; then
+              echo "HAPI-FHIR API is ready!"
+              break
+          elif [[ $count -gt 30 ]]; then
+              echo "reached maximum attempts, exiting"
+              exit 1
+          else
+              echo "HAPI-FHIR API is not ready yet, $count of 30 attempts, will try again in 2s..."
+              sleep 2
+          fi
         done
         
     - name: Stop Docker Compose
