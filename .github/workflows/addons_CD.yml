@@ -30,7 +30,9 @@ jobs:
         while [[ "$count" -lt 10 ]]; do
           sleep 10
           health_check_status=$(docker ps --format "{{.Names}} {{.Status}}" | awk '{print $2}')
-          if [[ "$(echo "$health_check_status" | awk '/odoo-web|odoo-db/ {print $1}' | uniq -d | wc -l)" -eq 2 ]]; then
+          web_status=$(echo "$health_check_status" | awk '($1 == "odoo-web") {print $1}')
+          db_status=$(echo "$health_check_status" | awk '($1 == "odoo-db") {print $1}')
+          if [[ "$web_status" == "healthy" && "$db_status" == "healthy" ]]; then
             echo "Both containers are healthy"
             break
           fi
