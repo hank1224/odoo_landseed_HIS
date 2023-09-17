@@ -27,7 +27,7 @@ jobs:
     - name: Wait for health checks
       run: |
         count=0
-        while [[ "$count" -lt 10 ]]; do
+        while [[ "$count" -lt 15 ]]; do
           sleep 10
           health_check_status=$(docker ps --format "{{.Names}} {{.Status}}" | awk '{print $2}')
           web_status=$(echo "$health_check_status" | awk '($1 == "odoo-web") {print $1}')
@@ -37,9 +37,11 @@ jobs:
             break
           fi
           count=$((count + 1))
+          echo "odoo-web status: $web_status"
+          echo "odoo-db status: $db_status"
           echo "Waiting for containers to become healthy..."
         done
-        if [[ "$count" -eq 10 ]]; then
+        if [[ "$count" -eq 15 ]]; then
           echo "Containers did not become healthy in time"
           exit 1
         fi

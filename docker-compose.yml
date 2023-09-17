@@ -10,7 +10,7 @@ services:
     healthcheck:
       test: curl -fs http://localhost:8069/web/database/selector || exit 1
       start_period: 40s
-      interval: 15s
+      interval: 10s
       timeout: 5s
       retries: 3
     volumes:
