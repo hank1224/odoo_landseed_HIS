@@ -6,11 +6,13 @@ services:
       - db
     ports:
       - "8069:8069"
+    container_name: odoo-web
     healthcheck:
       test: curl -fs http://localhost:8069/web/database/selector || exit 1
-      interval: 1m
+      start_period: 40s
+      interval: 15s
       timeout: 5s
-      retries: 2
+      retries: 3
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
@@ -27,21 +29,25 @@ services:
       - POSTGRES_PASSWORD=odoo
 
       - PGDATA=/var/lib/postgresql/data/pgdata
+    container_name: odoo-db
     healthcheck:
       test: ["CMD-SHELL", "pg_isready --username=odoo --dbname=odoo_db"] #dbname設為你第一次建立db的名稱
-      interval: 1m30s
-      timeout: 5s
-      retries: 2
+      start_period: 20s
+      interval: 10s
+      timeout: 3s
+      retries: 3
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
 
   hapi:
-    image: "hapiproject/hapi:latest"
-    healthcheck:
-      test: curl -fs http://localhost:8080/hapi/fhir/metadata || exit 1
-      interval: 1m30s
-      timeout: 15s
-      retries: 2
+    image: "hapiproject/hapi:latest" # 容器疑似沒有裝bash，healthcheck無法使用
+    container_name: hapi-fhir
+    # healthcheck:
+    #   test: curl -fs http://localhost:8080/fhir || exit 1
+    #   start_period: 40s
+    #   interval: 15s
+    #   timeout: 10s
+    #   retries: 2
     ports:
       - "8080:8080"
     volumes:
@@ -53,7 +59,6 @@ services:
 configs:
   hapi:
     file: ./config/hapi.application.yaml
-
 
 
 volumes:
