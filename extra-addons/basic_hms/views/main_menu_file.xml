@@ -62,6 +62,11 @@
                 parent="main_menu_configartion"
                 sequence='9'/>
 
+        <menuitem id="main_menu_test"
+            name="Test"
+            parent="main_menu_hospital_management"
+            sequence='14' />
+
 
 
 </openerp>
