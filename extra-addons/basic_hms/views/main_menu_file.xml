@@ -4,13 +4,13 @@
         	id="main_menu_hospital_management"
         	name="Hospital Management"
             web_icon="basic_hms,static/description/icon.png"
-           />
+        />
 
-         <menuitem name="Configuration"
+        <menuitem name="Configuration"
             id="main_menu_configartion"
             parent = "main_menu_hospital_management"
             sequence = '13'
-            />
+        />
             
                
     	<menuitem name="Laboratory"
@@ -30,7 +30,7 @@
             name='Medical Service' parent="main_menu_hospital_management"
             sequence="11" />
 
-         <menuitem id="menu_inpatient_administration" name="Inpatient Administration"
+        <menuitem id="menu_inpatient_administration" name="Inpatient Administration"
             parent="main_menu_hospital_management" sequence='2' />
 
         <menuitem id="menu_patients" name='Patients'
@@ -62,11 +62,10 @@
                 parent="main_menu_configartion"
                 sequence='9'/>
 
-        <menuitem id="main_menu_test"
-            name="Test"
+        <menuitem id="main_menu_register"
+            name="Register"
             parent="main_menu_hospital_management"
-            sequence='14' />
-
-
+            sequence='14'
+        />
 
 </openerp>

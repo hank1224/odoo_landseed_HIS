@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="medical_register_form_view">
+            <field name="name">medical.register.form.view</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="status"/>
+                            <field name="description"/>
+                            <field name="start"/>
+                            <field name="end"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="medical_register_tree_view">
+            <field name="name">medical.register.tree.view</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="description"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                </tree>
+                <!-- <form>
+                    <group>
+                        <button name="goto_other_view" string="轉到其他視圖" type="object" class="oe_highlight"/>
+                    </group>
+                </form> -->
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_medical_register">
+            <field name="name">Register</field>
+            <field name="res_model">medical.register</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Register" id="menu_register"
+            parent="main_menu_register" action="action_medical_register"/>
+    </data>
+</odoo>
