@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
+from . import medical_register
+
 from . import bed_transfer
 from . import medical_diagnostic_hypotesis
 from . import medical_patient_evaluation
