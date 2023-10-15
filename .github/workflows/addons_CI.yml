@@ -27,7 +27,7 @@ jobs:
     - name: Wait for health checks
       run: |
         timeout 60s sh -c 'until docker ps | grep odoo-db | grep -q healthy; do echo "Waiting for odoo_db to be healthy..."; sleep 2; done'
-        timeout 60s sh -c 'until docker ps | grep odoo-web | grep -q healthy; do echo "Waiting for odoo_web to be healthy..."; sleep 2; done'
+        timeout 240s sh -c 'until docker ps | grep odoo-web | grep -q healthy; do echo "Waiting for odoo_web to be healthy..."; sleep 2; done'
 
     - name: manually wait for hapi-fhir
       run: |
