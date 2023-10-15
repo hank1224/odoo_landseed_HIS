@@ -1,8 +1,8 @@
 # docker-compose並載入addons測試的環境
-**注意：ARM處理器(Mac M系列)無法運行**，因為套件wkhtmltopdf無法在ARM上運行([見](https://github.com/wkhtmltopdf/packaging/issues/98))
+於ARM64運行版本，適用於Mac M系列晶片
 
+正式版本將使用x64環境，**請勿直接合併到master**
 
-環境以Linux為主，Windows環境下已排除LF問題
 
 ## 步驟：
 1. 把需要測試的addons放入addons資料夾
