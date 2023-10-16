@@ -2,3 +2,6 @@
 
 # input: commit進去的時候幫你把輸入normalize(轉成LF)，checkout出來的時候原封不動
 git config core.autocrlf input
+
+*.sh text eol-lf
+wait-for-psql.sh text eol-lf
