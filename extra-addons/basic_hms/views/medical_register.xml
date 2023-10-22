@@ -13,6 +13,8 @@
                             <field name="description"/>
                             <field name="start"/>
                             <field name="end"/>
+                            <field name="patient_id"/>
+                            <field name="doctor_id"/>
                         </group>
                     </sheet>
                 </form>
@@ -23,18 +25,19 @@
             <field name="name">medical.register.tree.view</field>
             <field name="model">medical.register</field>
             <field name="arch" type="xml">
+                <!-- <header>
+                    <button name="import_fhir_data" string="接收轉診" type="object" class="oe_highlight"/>
+                </header> -->
                 <tree>
-                    <field name="name"/>
-                    <field name="status"/>
-                    <field name="description"/>
-                    <field name="start"/>
-                    <field name="end"/>
+                        <field name="name"/>
+                        <field name="status"/>
+                        <field name="description"/>
+                        <field name="start"/>
+                        <field name="end"/>
+                        <field name="patient_id"/>
+                        <field name="doctor_id"/>
+                        <!-- <button name="goto_other_view" string="轉診" type="object" class="oe_highlight"/> -->
                 </tree>
-                <!-- <form>
-                    <group>
-                        <button name="goto_other_view" string="轉到其他視圖" type="object" class="oe_highlight"/>
-                    </group>
-                </form> -->
             </field>
         </record>
 
@@ -44,7 +47,9 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Register" id="menu_register"
-            parent="main_menu_register" action="action_medical_register"/>
+        <menuitem   name="Register" 
+                    id="menu_register"
+                    parent="main_menu_register"
+                    action="action_medical_register"/>
     </data>
 </odoo>

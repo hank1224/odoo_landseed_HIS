@@ -35,7 +35,7 @@
     
 """,
 
-    "depends": ["base", "sale_management", "stock", "account"],
+    "depends": ["base", "sale_management", "stock", "account", "web"],
     "data": [
         'security/hospital_groups.xml',
         'security/ir.model.access.csv',
@@ -83,9 +83,7 @@
         'views/medical_test_type.xml',
         'views/medical_vaccination.xml',
         'views/res_partner.xml',
-
         'views/medical_register.xml',
-
         'report/report_view.xml',
         'report/appointment_recipts_report_template.xml',
         'report/medical_view_report_document_lab.xml',
@@ -105,7 +103,9 @@
     "images": ["static/description/Banner.gif"],
     "live_test_url": 'https://youtu.be/fk9dY53I9ow',
     "license":'OPL-1',
-
+    "controllers": [
+        'controllers/controllers.py',
+    ],
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
