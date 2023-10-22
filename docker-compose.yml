@@ -40,7 +40,7 @@ services:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
 
   hapi:
-    image: "hapiproject/hapi:latest" # 容器疑似沒有裝bash，healthcheck無法使用
+    image: "hapiproject/hapi:v6.8.3" # 容器疑似沒有裝bash，healthcheck無法使用
     container_name: hapi-fhir
     # healthcheck:
     #   test: curl -fs http://localhost:8080/fhir || exit 1
