@@ -25,9 +25,9 @@
             <field name="name">medical.register.tree.view</field>
             <field name="model">medical.register</field>
             <field name="arch" type="xml">
-                <header>
+                <!-- <header>
                     <button name="import_fhir_data" string="接收轉診" type="object" class="oe_highlight"/>
-                </header>
+                </header> -->
                 <tree>
                         <field name="name"/>
                         <field name="status"/>
@@ -36,7 +36,7 @@
                         <field name="end"/>
                         <field name="patient_id"/>
                         <field name="doctor_id"/>
-                        <button name="goto_other_view" string="轉診" type="object" class="oe_highlight"/>
+                        <!-- <button name="goto_other_view" string="轉診" type="object" class="oe_highlight"/> -->
                 </tree>
             </field>
         </record>
