@@ -1,3 +1,4 @@
+# 尚未驗證原碼包完整性，因之前ignore設定錯誤，未修補完成
 # odoo16的source code安裝方式
 
 先安裝psql，可用 docker 或 直接安裝
