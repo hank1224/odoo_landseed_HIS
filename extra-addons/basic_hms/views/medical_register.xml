@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="medical_register_form_view">
+            <field name="name">medical.register.form.view</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="status"/>
+                            <field name="start"/>
+                            <field name="patient_name"/>
+                            <field name="doctor_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="medical_register_tree_view">
+            <field name="name">medical.register.tree.view</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="start"/>
+                    <field name="patient_name"/>
+                    <field name="doctor_name"/>
+                    <button name="goto_other_view" string="轉診" type="object" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_medical_register_kanban">
+            <field name="name">medical.register.kanban.view</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_content">
+                                <div class="oe_kanban_footer">
+                                    <button name="import_fhir_data" string="Import FHIR Data" type="object" class="oe_highlight"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_button_page_form">
+            <field name="name">view.button.page.form</field>
+            <field name="model">medical.register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div>
+                            <button name="import_fhir_data" string="接收轉診" type="object" class="oe_highlight"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_medical_register">
+            <field name="name">預約資料表</field>
+            <field name="res_model">medical.register</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_button_page">
+            <field name="name">按下按鈕即可接收</field>
+            <field name="res_model">medical.register</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_button_page_form"/>
+        </record>
+
+        <menuitem   name="預約資料" 
+                    id="menu_register"
+                    parent="main_menu_register"
+                    action="action_medical_register"/>
+
+        <menuitem   name="接收轉診" 
+                    id="menu_button_page"
+                    parent="main_menu_register"
+                    action="action_button_page"/>
+
+    </data>
+</odoo>
