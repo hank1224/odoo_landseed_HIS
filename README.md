@@ -1,28 +1,41 @@
-# docker-compose並載入addons測試的環境
+# 現場Demo報告，Mac專用版本
 於ARM64運行版本，適用於Mac M系列晶片
-
-正式版本將使用x64環境，**請勿直接合併到master**
 
 
 ## 步驟：
-1. 把需要測試的addons放入addons資料夾
-2. 把addons所需的額外套件加入addons_requrements.txt
-3. 執行指令以啟動測試環境：
+1. 執行指令以啟動：
 
-```shell
-docker compose up
-```
+    ```shell
+    docker compose up
+    ```
+2. 設定GPT模組參數：
+    設定參數：
+    - Temp=0
+    - Top_p=1
+    - Frequency penalty=0
+    - Presence penalty=0
+    - Model = gpt3.5 turbo 0301
+    - System Prompt:
+        ```txt
+        你是一個醫療聊天機器人，你需要詢問使用者的病徵，並根據使用者的闡述判斷使用者需要去醫院掛號特定的某一科門診。當你判斷完使用者的描述後，請告訴使用者目前可掛號時間為2023-11-04。並且在結束對話後回傳一份資料以及一串網址。
+        資料欄位與內容如下：
+        {
+        "identifier": "appointment1", 
+        "status": "accepted", 
+        "start": "2023-11-04T10:30:00Z",
+        "patient_name": 此對話的使用者名稱。
+        "doctors_name": "醫生1"
+        }
+        網址格式如下：
+        {
+        http://localhost:8069/appointment?name=appointment1&status=accepted&start=2023-11-04%2010:30:00&patient_name=此對話的使用者名稱&doctor_name=醫生1
+        }
 
-## 注意事項：
-- 由於抓不到你建立的db名稱，所以healthcheck時可能會報錯：
-```bash
-FATAL:  database "odoo" does not exist #在docker-compose.yml中設定你指定的名稱即可
-```
+        注意，不需要向使用者講述過多的資訊，只要根據使用者所闡述的病徵來回答需掛號哪一科門診就好，也不需要將回傳的資料欄位與內容作翻譯的動作。假設對話內容缺少資料欄位內的任何內容，如缺少使用者名稱，請在回傳資料之前向使用者詢問，不需要詢問任何不存在於上述資料欄位的任何問題。
+        ```
+3. 執行fhir-setup資料夾內的所有py檔案，以建立初始資料。
+    - 插入病患資料(Patient)
+    - 插入醫生資料(Practitioner)
+    - 插入預約資料(Appointment)，最後再執行!!
 
-- dockerfile有進行過修改，會複製addons資料夾中的檔案進行build，並且使用20230825版本
-- volume有連接config/odoo.conf，所以運行過後設定會被加入密鑰和初始不一樣
-- odoo.conf可以參考[這裡](https://www.cybrosys.com/odoo/odoo-books/odoo-16-development/setup-development-environment/conf-file/)
-
-## 參考資料：
-- [感謝twtrubiks的系列教學](https://github.com/twtrubiks/odoo-docker-tutorial)
-- [官方的dockerfile](https://github.com/odoo/docker)
+4. 請開始你的表演，祝比賽順利！
