@@ -73,8 +73,8 @@ def send_fhir_data(fhir_data):
 # 假設表單有以下欄位
 form_data = {
     "identifier": "DOC1",
-    "firstName": "1",
-    "lastName": "醫生",
+    "firstName": "生1",
+    "lastName": "醫",
     "gender": "male",
     "birthDate": "1980-04-26",
     "addressLine": "竹北豪宅豪宅",
