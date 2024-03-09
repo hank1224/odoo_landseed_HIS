@@ -1,7 +1,10 @@
 # 環境以Linux為主，設定git的自動換行為lf
 
-# input: commit進去的時候幫你把輸入normalize(轉成LF)，checkout出來的時候原封不動
+# 在與存儲庫交互時，會將結尾定位符改為LF，但在檢出時不會進行自動轉換
 git config core.autocrlf input
 
-*.sh text eol-lf
-wait-for-psql.sh text eol-lf
+# 表示將.sh文件視為文本文件，並在檢出時將結尾定位符轉換為LF
+*.sh text eol=lf
+
+# 將wait-for-psql.sh文件視為文本文件，並在檢出時將結尾定位符轉換為LF
+wait-for-psql.sh text eol=lf
