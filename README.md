@@ -1,44 +1,33 @@
-# 尚未驗證原碼包完整性，因之前ignore設定錯誤，未修補完成
 # odoo16的source code安裝方式
 
-先安裝psql，可用 docker 或 直接安裝
+**！！務必閱讀官方文檔，三個系統安裝方式皆不同！！**
 
-- docker：需要把port映射出來，映射出來的話是localhost:5432
-- 直接安裝：注意odoo預設使用UNIX socket連線，在odoo.conf設定 --db_host=localhost 即可更改
+- [source安裝](https://www.odoo.com/documentation/16.0/administration/install/source.html)
 
-再安裝odoo：
-
-- source code：需要先pip安裝環境，不同平台套件容易不支援
-- exe拆包：不需要安裝環境，但只能在Windows上使用（[參考連結](https://stackoverflow.com/questions/75569858how-to-install-odoo-on-windows-along-with-other-version-and-run-it-without-error)）
-
-## Dev環境安裝建議：
-
-odoo使用：
-
-- Windows: exe安裝後拆來用(完美避雷)
-- MacOS: source code
-- Linux/Ubuntu: source code
-
-psql使用：
-
-- docker 或 直接安裝 都可以看習慣
-
-用docker啟動psql：
+## 先docker建psql和hapi：
 
 ```bash
-# 位置psql_docker
-docker compose up
+docker compose up -f docker-compose.yml
 ```
+volume會建立在本地的.docker-volumes資料夾
 
-若要刪除或重建資料庫：
+## 安裝odoo依賴：
+基本都必須用
 
 ```bash
-# 位置psql_docker
-docker compose down
-docker volume rm psql_docker_odoo-db-data
+pip install -r requirements.txt
 ```
 
+視系統不同需要額外步驟，請參考官方文檔
+
+## 選擇安裝odoo：
+1. 直接用這包repo，繼續下一步
+
+2. 僅windows可使用exe拆包方式，完美避雷（[教學文章已遺失](https://stackoverflow.com/questions/75569858how-to-install-odoo-on-windows-along-with-other-version-and-run-it-without-error)）
+
+## 啟動：
 首次啟動odoo請使用：`python odoo-bin --db_host=localhost --db_user 資料庫帳號 --db_password 資料庫密碼`
+
 （若odoo使用UNIX socket就不設定 --db_host=localhost ）
 
 用此指令第一次進入後他會叫你建資料庫名稱和admin帳號
@@ -59,6 +48,16 @@ docker volume rm psql_docker_odoo-db-data
 - `--db_password=資料庫密碼`
 - `--db_host=localhost`
 - `--without-demo=all`： 初次建立資料庫時不安裝demo資料
+
+## 其他
+若要刪除odoo資料庫：
+
+```bash
+docker compose down
+docker volume rm odoo-db-data
+```
+
+嫌麻煩建議改使用docker方式安裝，良心建議
 
 ## Reference：
 

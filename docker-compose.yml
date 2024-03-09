@@ -18,7 +18,7 @@ services:
       timeout: 3s
       retries: 3
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
+      - .docker-volumes/psql-data:/var/lib/postgresql/data/pgdata
 
   hapi:
       image: "hapiproject/hapi:latest" # 容器疑似沒有裝bash，healthcheck無法使用
@@ -32,14 +32,14 @@ services:
       ports:
         - "8080:8080"
       volumes:
-        - hapi-data:/data/hapi
+        - .docker-volumes/hapi-data:/data/hapi
       configs:
         - source: hapi
           target: /app/config/application.yaml
 
 configs:
   hapi:
-    file: ./config/hapi.application.yaml
+    file: ./conf/hapi.application.yaml
 
 volumes:
   odoo-db-data:
