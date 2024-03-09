@@ -50,16 +50,15 @@ pip install -r requirements.txt
 - `--without-demo=all`： 初次建立資料庫時不安裝demo資料
 
 ## 其他
-若要刪除odoo資料庫：
+volume會建立在本地的.docker-volumes資料夾
 
-```bash
-docker compose down
-docker volume rm odoo-db-data
-```
-
-嫌麻煩建議改使用docker方式安裝，良心建議
+若要刪除資料庫資料可以直接刪除該資料夾
 
 ## Reference：
+
+以上嫌麻煩建議改使用docker方式安裝，良心建議
+
+docker安裝方法請見此repo另外兩個banch: x86-docker-env 和 arm64-docker-env
 
 - [source安裝](https://www.odoo.com/documentation/16.0/administration/install/source.html)
 - [啟動參數](https://www.odoo.com/documentation/16.0/developer/reference/cli.html)
