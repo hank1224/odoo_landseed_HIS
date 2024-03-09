@@ -6,5 +6,5 @@ git config core.autocrlf input
 # 表示將.sh文件視為文本文件，並在檢出時將結尾定位符轉換為LF
 *.sh text eol=lf
 
-# 將wait-for-psql.sh文件視為文本文件，並在檢出時將結尾定位符轉換為LF
-wait-for-psql.sh text eol=lf
+# 將wait-for-psql.py文件視為文本文件，並在檢出時將結尾定位符轉換為LF
+wait-for-psql.py text eol=lf
